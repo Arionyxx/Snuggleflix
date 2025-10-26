@@ -4,7 +4,9 @@ import Hero from './components/Hero'
 import MovieRow from './components/MovieRow'
 import VideoPlayer from './components/VideoPlayer'
 import SearchResults from './components/SearchResults'
+import Watchlist from './components/Watchlist'
 import { fetchTrendingMovies, fetchTrendingTVShows, fetchPopularMovies, searchMovies } from './services/api'
+import { userService } from './services/userService'
 import './App.css'
 
 function App() {
@@ -15,9 +17,12 @@ function App() {
   const [searchQuery, setSearchQuery] = useState('')
   const [searchResults, setSearchResults] = useState([])
   const [isSearching, setIsSearching] = useState(false)
+  const [showWatchlist, setShowWatchlist] = useState(false)
+  const [continueWatching, setContinueWatching] = useState([])
 
   useEffect(() => {
     loadContent()
+    loadContinueWatching()
   }, [])
 
   useEffect(() => {
@@ -44,6 +49,11 @@ function App() {
     }
   }
 
+  const loadContinueWatching = () => {
+    const watching = userService.getContinueWatching()
+    setContinueWatching(watching)
+  }
+
   const handleSearch = async (query) => {
     if (!query.trim()) {
       setSearchResults([])
@@ -63,18 +73,34 @@ function App() {
 
   const handleMovieSelect = (movie) => {
     setSelectedMovie(movie)
+    // Add to watch history
+    userService.addToHistory(movie, 0)
+    loadContinueWatching()
   }
 
   const handleClosePlayer = () => {
     setSelectedMovie(null)
+    loadContinueWatching()
+  }
+
+  const handleWatchlistClick = () => {
+    setShowWatchlist(true)
+  }
+
+  const handleCloseWatchlist = () => {
+    setShowWatchlist(false)
   }
 
   return (
     <div className="app">
-      <Navbar onSearch={setSearchQuery} />
+      <Navbar onSearch={setSearchQuery} onWatchlistClick={handleWatchlistClick} />
       
       {selectedMovie && (
         <VideoPlayer movie={selectedMovie} onClose={handleClosePlayer} />
+      )}
+
+      {showWatchlist && (
+        <Watchlist onClose={handleCloseWatchlist} onMovieSelect={handleMovieSelect} />
       )}
 
       {isSearching ? (
@@ -88,6 +114,13 @@ function App() {
           <Hero movies={trendingMovies} onMovieSelect={handleMovieSelect} />
           
           <div className="content-container">
+            {continueWatching.length > 0 && (
+              <MovieRow 
+                title="Continue Watching" 
+                movies={continueWatching}
+                onMovieSelect={handleMovieSelect}
+              />
+            )}
             <MovieRow 
               title="Trending Now" 
               movies={trendingMovies}

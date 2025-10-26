@@ -20,8 +20,11 @@
   "homepage": "https://github.com/Arionyxx/Snuggleflix#readme",
   "description": "Snuggleflix - A cozy Netflix clone for movie nights with friends",
   "dependencies": {
+    "@clerk/clerk-react": "^5.53.3",
+    "@neondatabase/serverless": "^1.0.2",
     "@vitejs/plugin-react": "^5.1.0",
     "axios": "^1.12.2",
+    "dotenv": "^17.2.3",
     "lucide-react": "^0.548.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
