@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Search, Settings, Heart, BookmarkHeart } from 'lucide-react'
+import { Search, Settings, Heart, Bookmark } from 'lucide-react'
 import './Navbar.css'
 
 function Navbar({ onSearch, onWatchlistClick, onSettingsClick }) {
@@ -39,7 +39,7 @@ function Navbar({ onSearch, onWatchlistClick, onSettingsClick }) {
           onClick={onWatchlistClick}
           title="My Watchlist"
         >
-          <BookmarkHeart size={24} />
+          <Bookmark size={24} />
         </button>
         <button 
           className="settings-btn"
