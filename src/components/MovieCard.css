@@ -40,6 +40,47 @@
   filter: brightness(0.7);
 }
 
+.watchlist-heart {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 107, 157, 0.3);
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  color: #fff;
+  transition: all 0.3s ease;
+  opacity: 0;
+}
+
+.movie-card:hover .watchlist-heart {
+  opacity: 1;
+}
+
+.watchlist-heart:hover {
+  transform: scale(1.1);
+  background: rgba(255, 107, 157, 0.3);
+  border-color: #ff6b9d;
+}
+
+.watchlist-heart.active {
+  opacity: 1;
+  background: rgba(255, 107, 157, 0.3);
+  border-color: #ff6b9d;
+  color: #ff6b9d;
+}
+
+.watchlist-heart.active:hover {
+  transform: scale(1.1) rotate(10deg);
+}
+
 .card-overlay {
   position: absolute;
   top: 0;

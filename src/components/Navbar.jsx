@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { Search, Settings, Heart } from 'lucide-react'
+import { Search, Settings, Heart, BookmarkHeart } from 'lucide-react'
 import './Navbar.css'
 
-function Navbar({ onSearch }) {
+function Navbar({ onSearch, onWatchlistClick }) {
   const [searchInput, setSearchInput] = useState('')
   const [showSettings, setShowSettings] = useState(false)
 
@@ -35,6 +35,13 @@ function Navbar({ onSearch }) {
       </div>
 
       <div className="navbar-right">
+        <button 
+          className="watchlist-btn"
+          onClick={onWatchlistClick}
+          title="My Watchlist"
+        >
+          <BookmarkHeart size={24} />
+        </button>
         <button 
           className="settings-btn"
           onClick={() => setShowSettings(!showSettings)}
