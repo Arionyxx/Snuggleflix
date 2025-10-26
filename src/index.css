@@ -1,3 +1,13 @@
+:root {
+  --primary-color: #ff6b9d;
+  --secondary-color: #c06cff;
+  --accent-color: #6cd8ff;
+  --bg-start: #1a1a2e;
+  --bg-mid: #16213e;
+  --bg-end: #0f3460;
+  --animations-enabled: 1;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -6,10 +16,11 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-mid) 50%, var(--bg-end) 100%);
   color: #fff;
   overflow-x: hidden;
   min-height: 100vh;
+  transition: background 0.5s ease;
 }
 
 #root {
@@ -22,16 +33,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #1a1a2e;
+  background: var(--bg-start);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #ff6b9d;
+  background: var(--primary-color);
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #ff527a;
+  background: var(--secondary-color);
 }
 
 /* Animations */
@@ -59,10 +70,28 @@ body {
 
 @keyframes glow {
   0%, 100% {
-    filter: drop-shadow(0 0 5px rgba(255, 107, 157, 0.5));
+    filter: drop-shadow(0 0 5px var(--primary-color));
   }
   50% {
-    filter: drop-shadow(0 0 20px rgba(255, 107, 157, 0.8));
+    filter: drop-shadow(0 0 20px var(--primary-color));
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
   }
 }
 
@@ -72,4 +101,29 @@ body {
 
 .slide-in {
   animation: slideIn 0.6s ease-out;
+}
+
+/* Disable animations when toggled */
+body.no-animations *,
+body.no-animations *::before,
+body.no-animations *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+
+/* Card style variations */
+[data-card-style="classic"] .movie-card .card-image-container {
+  border-radius: 8px;
+  border-width: 2px;
+}
+
+[data-card-style="minimal"] .movie-card .card-image-container {
+  border-radius: 5px;
+  border-width: 1px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+[data-card-style="minimal"] .movie-card::before {
+  display: none;
 }

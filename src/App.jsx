@@ -1,10 +1,13 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
+import { AnimatePresence } from 'framer-motion'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import MovieRow from './components/MovieRow'
 import VideoPlayer from './components/VideoPlayer'
 import SearchResults from './components/SearchResults'
 import Watchlist from './components/Watchlist'
+import MovieDetails from './components/MovieDetails'
+import SettingsPanel from './components/SettingsPanel'
 import { fetchTrendingMovies, fetchTrendingTVShows, fetchPopularMovies, searchMovies } from './services/api'
 import { userService } from './services/userService'
 import './App.css'
@@ -19,6 +22,9 @@ function App() {
   const [isSearching, setIsSearching] = useState(false)
   const [showWatchlist, setShowWatchlist] = useState(false)
   const [continueWatching, setContinueWatching] = useState([])
+  const [showDetails, setShowDetails] = useState(false)
+  const [detailsMovie, setDetailsMovie] = useState(null)
+  const [showSettings, setShowSettings] = useState(false)
 
   useEffect(() => {
     loadContent()
@@ -91,17 +97,86 @@ function App() {
     setShowWatchlist(false)
   }
 
+  const handleShowDetails = useCallback((movie) => {
+    setDetailsMovie(movie)
+    setShowDetails(true)
+  }, [])
+
+  const handleCloseDetails = () => {
+    setShowDetails(false)
+    setDetailsMovie(null)
+  }
+
+  const handleShowSettings = () => {
+    setShowSettings(true)
+  }
+
+  const handleCloseSettings = () => {
+    setShowSettings(false)
+  }
+
+  const handlePlayFromDetails = (movie) => {
+    handleCloseDetails()
+    handleMovieSelect(movie)
+  }
+
+  // Keyboard shortcuts
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      // ESC to close overlays
+      if (e.key === 'Escape') {
+        if (showSettings) handleCloseSettings()
+        else if (showDetails) handleCloseDetails()
+        else if (showWatchlist) handleCloseWatchlist()
+        else if (selectedMovie) handleClosePlayer()
+      }
+      // S for settings
+      if (e.key === 's' && !e.ctrlKey && !e.metaKey) {
+        if (!selectedMovie && !showDetails && !showWatchlist) {
+          handleShowSettings()
+        }
+      }
+      // W for watchlist
+      if (e.key === 'w' && !e.ctrlKey && !e.metaKey) {
+        if (!selectedMovie && !showDetails && !showSettings) {
+          setShowWatchlist(prev => !prev)
+        }
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyPress)
+    return () => window.removeEventListener('keydown', handleKeyPress)
+  }, [showSettings, showDetails, showWatchlist, selectedMovie])
+
   return (
     <div className="app">
-      <Navbar onSearch={setSearchQuery} onWatchlistClick={handleWatchlistClick} />
+      <Navbar 
+        onSearch={setSearchQuery} 
+        onWatchlistClick={handleWatchlistClick}
+        onSettingsClick={handleShowSettings}
+      />
       
       {selectedMovie && (
         <VideoPlayer movie={selectedMovie} onClose={handleClosePlayer} />
       )}
 
-      {showWatchlist && (
-        <Watchlist onClose={handleCloseWatchlist} onMovieSelect={handleMovieSelect} />
-      )}
+      <AnimatePresence>
+        {showWatchlist && (
+          <Watchlist onClose={handleCloseWatchlist} onMovieSelect={handleMovieSelect} />
+        )}
+
+        {showDetails && detailsMovie && (
+          <MovieDetails 
+            movie={detailsMovie} 
+            onClose={handleCloseDetails}
+            onPlay={handlePlayFromDetails}
+          />
+        )}
+
+        {showSettings && (
+          <SettingsPanel onClose={handleCloseSettings} />
+        )}
+      </AnimatePresence>
 
       {isSearching ? (
         <SearchResults 
@@ -119,22 +194,26 @@ function App() {
                 title="Continue Watching" 
                 movies={continueWatching}
                 onMovieSelect={handleMovieSelect}
+                onShowDetails={handleShowDetails}
               />
             )}
             <MovieRow 
               title="Trending Now" 
               movies={trendingMovies}
               onMovieSelect={handleMovieSelect}
+              onShowDetails={handleShowDetails}
             />
             <MovieRow 
               title="Popular TV Shows" 
               movies={trendingShows}
               onMovieSelect={handleMovieSelect}
+              onShowDetails={handleShowDetails}
             />
             <MovieRow 
               title="Popular Movies" 
               movies={popularMovies}
               onMovieSelect={handleMovieSelect}
+              onShowDetails={handleShowDetails}
             />
           </div>
         </>

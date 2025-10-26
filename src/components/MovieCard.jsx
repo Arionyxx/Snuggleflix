@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react'
-import { Play, Star, Calendar, Heart } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { Play, Star, Calendar, Heart, Info } from 'lucide-react'
 import { getImageUrl } from '../services/api'
 import { userService } from '../services/userService'
+import { useTheme } from '../contexts/ThemeContext'
 import './MovieCard.css'
 
-function MovieCard({ movie, onSelect }) {
+function MovieCard({ movie, onSelect, onShowDetails, index = 0 }) {
   const [isHovered, setIsHovered] = useState(false)
   const [isInWatchlist, setIsInWatchlist] = useState(false)
+  const { animationsEnabled } = useTheme()
 
   useEffect(() => {
     setIsInWatchlist(userService.isInWatchlist(movie.id, movie.media_type))
@@ -23,12 +26,54 @@ function MovieCard({ movie, onSelect }) {
     }
   }
 
+  const handleShowDetails = (e) => {
+    e.stopPropagation()
+    if (onShowDetails) {
+      onShowDetails(movie)
+    }
+  }
+
+  const cardVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 50,
+      scale: 0.9
+    },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      scale: 1,
+      transition: {
+        delay: index * 0.05,
+        duration: 0.5,
+        ease: [0.6, -0.05, 0.01, 0.99]
+      }
+    },
+    hover: {
+      scale: 1.08,
+      y: -10,
+      transition: {
+        duration: 0.3,
+        ease: 'easeOut'
+      }
+    }
+  }
+
+  const MotionDiv = animationsEnabled ? motion.div : 'div'
+  const motionProps = animationsEnabled ? {
+    variants: cardVariants,
+    initial: 'hidden',
+    animate: 'visible',
+    whileHover: 'hover'
+  } : {}
+
   return (
-    <div 
+    <MotionDiv 
       className="movie-card"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => onSelect(movie)}
+      {...motionProps}
     >
       <div className="card-image-container">
         <img 
@@ -43,9 +88,14 @@ function MovieCard({ movie, onSelect }) {
           <Heart size={24} fill={isInWatchlist ? '#ff6b9d' : 'none'} />
         </button>
         <div className={`card-overlay ${isHovered ? 'show' : ''}`}>
-          <button className="play-icon">
+          <button className="play-icon" onClick={(e) => { e.stopPropagation(); onSelect(movie); }}>
             <Play fill="white" size={32} />
           </button>
+          {onShowDetails && (
+            <button className="info-icon" onClick={handleShowDetails}>
+              <Info size={24} />
+            </button>
+          )}
         </div>
       </div>
       
@@ -62,7 +112,7 @@ function MovieCard({ movie, onSelect }) {
           </span>
         </div>
       </div>
-    </div>
+    </MotionDiv>
   )
 }
 
