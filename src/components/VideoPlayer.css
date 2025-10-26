@@ -1,0 +1,295 @@
+.video-player-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+  overflow-y: auto;
+}
+
+.video-player-container {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 1400px;
+  padding: 30px;
+  box-shadow: 0 20px 60px rgba(255, 107, 157, 0.3);
+  border: 2px solid rgba(255, 107, 157, 0.3);
+  max-height: 95vh;
+  overflow-y: auto;
+}
+
+.player-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.player-title {
+  font-size: 2rem;
+  color: #ff6b9d;
+  font-weight: bold;
+}
+
+.close-btn {
+  background: rgba(255, 107, 157, 0.2);
+  border: 2px solid rgba(255, 107, 157, 0.3);
+  padding: 10px;
+  border-radius: 50%;
+  color: #ff6b9d;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-btn:hover {
+  background: rgba(255, 107, 157, 0.3);
+  border-color: #ff6b9d;
+  transform: rotate(90deg);
+}
+
+.player-content {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  margin-bottom: 20px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.video-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 15px;
+}
+
+.player-controls {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 25px;
+  border-radius: 15px;
+  margin-bottom: 15px;
+  border: 1px solid rgba(255, 107, 157, 0.2);
+}
+
+.source-selector {
+  margin-bottom: 20px;
+}
+
+.source-selector label {
+  display: block;
+  color: #ff6b9d;
+  font-weight: bold;
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+}
+
+.source-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.source-btn {
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 107, 157, 0.3);
+  border-radius: 20px;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.source-btn:hover {
+  background: rgba(255, 107, 157, 0.2);
+  border-color: #ff6b9d;
+}
+
+.source-btn.active {
+  background: #ff6b9d;
+  border-color: #ff6b9d;
+  box-shadow: 0 5px 15px rgba(255, 107, 157, 0.4);
+}
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: rgba(255, 107, 157, 0.2);
+  border: 2px solid rgba(255, 107, 157, 0.3);
+  border-radius: 25px;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.action-btn:hover {
+  background: rgba(255, 107, 157, 0.3);
+  border-color: #ff6b9d;
+  transform: translateY(-2px);
+}
+
+.rd-btn.connected {
+  background: rgba(76, 175, 80, 0.3);
+  border-color: rgba(76, 175, 80, 0.5);
+}
+
+.rd-btn.connected:hover {
+  background: rgba(76, 175, 80, 0.4);
+  border-color: #4caf50;
+}
+
+.rd-setup {
+  margin-top: 20px;
+  padding: 20px;
+  background: rgba(255, 107, 157, 0.1);
+  border-radius: 15px;
+  border: 2px solid rgba(255, 107, 157, 0.3);
+}
+
+.rd-setup h3 {
+  color: #ff6b9d;
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+}
+
+.rd-setup p {
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.rd-input {
+  width: 100%;
+  padding: 12px 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 107, 157, 0.3);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.rd-input:focus {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: #ff6b9d;
+}
+
+.rd-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.rd-save-btn,
+.rd-cancel-btn {
+  padding: 10px 25px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.rd-save-btn {
+  background: #ff6b9d;
+  color: #fff;
+}
+
+.rd-save-btn:hover {
+  background: #ff527a;
+  box-shadow: 0 5px 15px rgba(255, 107, 157, 0.4);
+}
+
+.rd-cancel-btn {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.rd-cancel-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.rd-help {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.rd-help a {
+  color: #ff6b9d;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.rd-help a:hover {
+  text-decoration: underline;
+}
+
+.player-info {
+  background: rgba(255, 107, 157, 0.1);
+  padding: 15px;
+  border-radius: 10px;
+  border-left: 4px solid #ff6b9d;
+}
+
+.info-text {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.info-text strong {
+  color: #ff6b9d;
+}
+
+@media (max-width: 768px) {
+  .video-player-container {
+    padding: 20px;
+  }
+
+  .player-title {
+    font-size: 1.5rem;
+  }
+
+  .source-buttons,
+  .action-buttons,
+  .rd-buttons {
+    flex-direction: column;
+  }
+
+  .source-btn,
+  .action-btn,
+  .rd-save-btn,
+  .rd-cancel-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

@@ -1,0 +1,142 @@
+.hero {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  margin-top: 80px;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(26, 26, 46, 0.3) 0%,
+    rgba(26, 26, 46, 0.95) 100%
+  );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 4%;
+  max-width: 700px;
+}
+
+.hero-title {
+  font-size: 4rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.8);
+  color: #fff;
+  line-height: 1.2;
+}
+
+.hero-description {
+  font-size: 1.3rem;
+  line-height: 1.8;
+  margin-bottom: 30px;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.8);
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.hero-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 35px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.play-btn {
+  background: #ff6b9d;
+  color: #fff;
+  box-shadow: 0 5px 20px rgba(255, 107, 157, 0.4);
+}
+
+.play-btn:hover {
+  background: #ff527a;
+  box-shadow: 0 8px 30px rgba(255, 107, 157, 0.6);
+  transform: translateY(-3px);
+}
+
+.info-btn {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.info-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: #ff6b9d;
+  transform: translateY(-3px);
+}
+
+.hero-rating {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.rating-star {
+  font-size: 1.5rem;
+}
+
+.rating-value {
+  font-weight: bold;
+  color: #ffd700;
+}
+
+.rating-separator {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.rating-year {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+@media (max-width: 768px) {
+  .hero {
+    height: 60vh;
+    margin-top: 120px;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+  }
+
+  .hero-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

@@ -1,0 +1,99 @@
+.movie-row {
+  margin-bottom: 50px;
+  animation: slideIn 0.6s ease-out;
+}
+
+.row-title {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #fff;
+  font-weight: bold;
+  padding-left: 10px;
+  position: relative;
+}
+
+.row-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to bottom, #ff6b9d, #c06cff);
+  border-radius: 2px;
+}
+
+.row-container {
+  position: relative;
+  padding: 10px 0;
+}
+
+.movies-list {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  padding: 10px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.movies-list::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 107, 157, 0.3);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 107, 157, 0.5);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  color: #fff;
+  transition: all 0.3s ease;
+  opacity: 0;
+}
+
+.row-container:hover .scroll-btn {
+  opacity: 1;
+}
+
+.scroll-btn:hover {
+  background: rgba(255, 107, 157, 0.5);
+  border-color: #ff6b9d;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.scroll-left {
+  left: 10px;
+}
+
+.scroll-right {
+  right: 10px;
+}
+
+@media (max-width: 768px) {
+  .row-title {
+    font-size: 1.4rem;
+  }
+
+  .scroll-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .scroll-btn svg {
+    width: 24px;
+    height: 24px;
+  }
+}

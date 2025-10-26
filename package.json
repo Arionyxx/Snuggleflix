@@ -1,0 +1,30 @@
+{
+  "name": "snuggleflix",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arionyxx/Snuggleflix.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Arionyxx/Snuggleflix/issues"
+  },
+  "homepage": "https://github.com/Arionyxx/Snuggleflix#readme",
+  "description": "Snuggleflix - A cozy Netflix clone for movie nights with friends",
+  "dependencies": {
+    "@vitejs/plugin-react": "^5.1.0",
+    "axios": "^1.12.2",
+    "lucide-react": "^0.548.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "vite": "^7.1.12"
+  }
+}
