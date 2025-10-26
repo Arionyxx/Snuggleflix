@@ -3,64 +3,65 @@ import { createContext, useContext, useState, useEffect } from 'react'
 const ThemeContext = createContext()
 
 export const themes = {
+  netflix: {
+    name: 'Netflix Classic',
+    primary: '#e50914',
+    secondary: '#b20710',
+    accent: '#ffffff',
+    bgStart: '#141414',
+    bgMid: '#1a1a1a',
+    bgEnd: '#0a0a0a',
+  },
   cozy: {
-    name: 'Cozy Pink',
-    primary: '#ff6b9d',
-    secondary: '#c06cff',
-    accent: '#6cd8ff',
-    bgStart: '#1a1a2e',
-    bgMid: '#16213e',
-    bgEnd: '#0f3460',
+    name: 'Cozy Soft',
+    primary: '#e91e63',
+    secondary: '#9c27b0',
+    accent: '#03a9f4',
+    bgStart: '#1a1a1a',
+    bgMid: '#212121',
+    bgEnd: '#121212',
   },
-  midnight: {
-    name: 'Midnight Blue',
-    primary: '#4a9eff',
-    secondary: '#8b5cf6',
-    accent: '#06b6d4',
-    bgStart: '#0a0e27',
-    bgMid: '#1a1f3a',
-    bgEnd: '#0f1729',
+  dark: {
+    name: 'Pure Dark',
+    primary: '#ffffff',
+    secondary: '#e0e0e0',
+    accent: '#bb86fc',
+    bgStart: '#000000',
+    bgMid: '#121212',
+    bgEnd: '#000000',
   },
-  sunset: {
-    name: 'Sunset Orange',
-    primary: '#ff6b35',
-    secondary: '#f72585',
-    accent: '#ffd60a',
-    bgStart: '#2b2d42',
-    bgMid: '#1a1b2e',
-    bgEnd: '#0d0e1a',
+  prime: {
+    name: 'Prime Video',
+    primary: '#00a8e1',
+    secondary: '#1a98ff',
+    accent: '#232f3e',
+    bgStart: '#0f171e',
+    bgMid: '#1a242f',
+    bgEnd: '#0a0e13',
   },
-  forest: {
-    name: 'Forest Green',
-    primary: '#2ecc71',
-    secondary: '#1abc9c',
-    accent: '#3498db',
-    bgStart: '#1a2a2e',
-    bgMid: '#0f1b1f',
-    bgEnd: '#0a1215',
+  hulu: {
+    name: 'Hulu Green',
+    primary: '#1ce783',
+    secondary: '#0b4a2a',
+    accent: '#ffffff',
+    bgStart: '#0b0f0e',
+    bgMid: '#151d19',
+    bgEnd: '#0a0e0c',
   },
-  lavender: {
-    name: 'Lavender Dream',
-    primary: '#b794f6',
-    secondary: '#f093fb',
-    accent: '#4facfe',
-    bgStart: '#2d2a4a',
-    bgMid: '#1e1b3a',
-    bgEnd: '#13112a',
+  disney: {
+    name: 'Disney Plus',
+    primary: '#0063e5',
+    secondary: '#0483ee',
+    accent: '#f9f9f9',
+    bgStart: '#040714',
+    bgMid: '#0d1117',
+    bgEnd: '#020408',
   },
-  crimson: {
-    name: 'Crimson Night',
-    primary: '#e63946',
-    secondary: '#a8dadc',
-    accent: '#457b9d',
-    bgStart: '#1d3557',
-    bgMid: '#1a2b3f',
-    bgEnd: '#0d1b2a',
-  }
+
 }
 
 export function ThemeProvider({ children }) {
-  const [currentTheme, setCurrentTheme] = useState('cozy')
+  const [currentTheme, setCurrentTheme] = useState('netflix')
   const [animationsEnabled, setAnimationsEnabled] = useState(true)
   const [cardStyle, setCardStyle] = useState('modern') // modern, classic, minimal
 

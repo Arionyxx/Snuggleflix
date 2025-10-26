@@ -1,9 +1,15 @@
 import axios from 'axios'
 
 // TMDB API for movie data
-const TMDB_API_KEY = 'YOUR_TMDB_API_KEY' // Users should replace with their key
+const TMDB_API_KEY = import.meta.env.VITE_TMDB_API_KEY || 'YOUR_TMDB_API_KEY'
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3'
 const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p'
+
+// Check if API key is configured
+if (TMDB_API_KEY === 'YOUR_TMDB_API_KEY') {
+  console.warn('⚠️ TMDB API Key not configured! Please add VITE_TMDB_API_KEY to your .env file')
+  console.warn('Get your key at: https://www.themoviedb.org/settings/api')
+}
 
 // Free streaming API (vidsrc.to)
 export const getStreamUrl = (movie) => {
