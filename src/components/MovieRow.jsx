@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 import MovieCard from './MovieCard'
 import './MovieRow.css'
 
-function MovieRow({ title, movies, onMovieSelect }) {
+function MovieRow({ title, movies, onMovieSelect, onShowDetails }) {
   const rowRef = useRef(null)
 
   const scroll = (direction) => {
@@ -31,7 +31,9 @@ function MovieRow({ title, movies, onMovieSelect }) {
             <MovieCard 
               key={`${movie.id}-${index}`}
               movie={movie}
+              index={index}
               onSelect={onMovieSelect}
+              onShowDetails={onShowDetails}
             />
           ))}
         </div>

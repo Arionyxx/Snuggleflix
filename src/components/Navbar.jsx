@@ -2,9 +2,8 @@ import { useState } from 'react'
 import { Search, Settings, Heart, BookmarkHeart } from 'lucide-react'
 import './Navbar.css'
 
-function Navbar({ onSearch, onWatchlistClick }) {
+function Navbar({ onSearch, onWatchlistClick, onSettingsClick }) {
   const [searchInput, setSearchInput] = useState('')
-  const [showSettings, setShowSettings] = useState(false)
 
   const handleSearchChange = (e) => {
     const value = e.target.value
@@ -44,26 +43,11 @@ function Navbar({ onSearch, onWatchlistClick }) {
         </button>
         <button 
           className="settings-btn"
-          onClick={() => setShowSettings(!showSettings)}
+          onClick={onSettingsClick}
         >
           <Settings size={24} />
         </button>
       </div>
-
-      {showSettings && (
-        <div className="settings-modal">
-          <div className="settings-content">
-            <h3>Settings</h3>
-            <p className="settings-info">
-              Configure your TMDB API key in <code>src/services/api.js</code>
-            </p>
-            <p className="settings-info">
-              Add your Real-Debrid token in the video player for premium links
-            </p>
-            <button onClick={() => setShowSettings(false)}>Close</button>
-          </div>
-        </div>
-      )}
     </nav>
   )
 }
