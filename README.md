@@ -125,6 +125,58 @@ Snuggleflix/
 - **TMDB API** - Movie database
 - **VidSrc** - Free streaming API
 
+## 🏗️ Architecture
+
+```mermaid
+graph TB
+    subgraph Frontend
+        A[App Component] --> B[Navbar]
+        A --> C[Hero]
+        A --> D[Movie Rows]
+        A --> E[Search Results]
+        A --> F[Video Player]
+        D --> G[Movie Cards]
+        E --> G
+    end
+    
+    subgraph Services
+        H[TMDB API Service]
+        I[Real-Debrid Service]
+        J[Streaming Sources]
+    end
+    
+    subgraph External
+        K[TMDB Database]
+        L[Real-Debrid API]
+        M[VidSrc]
+        N[SuperEmbed]
+        O[2Embed]
+    end
+    
+    B -.Search.-> H
+    C --> H
+    D --> H
+    E --> H
+    F --> I
+    F --> J
+    
+    H --> K
+    I --> L
+    J --> M
+    J --> N
+    J --> O
+    
+    style A fill:#ff6b9d
+    style H fill:#c06cff
+    style I fill:#c06cff
+    style J fill:#c06cff
+    style K fill:#6cd8ff
+    style L fill:#6cd8ff
+    style M fill:#6cd8ff
+    style N fill:#6cd8ff
+    style O fill:#6cd8ff
+```
+
 ## 🔧 Troubleshooting
 
 ### No movies showing?
