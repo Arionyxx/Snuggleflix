@@ -1,15 +1,13 @@
 import axios from 'axios'
 
-// TMDB API for movie data
-const TMDB_API_KEY = import.meta.env.VITE_TMDB_API_KEY || 'YOUR_TMDB_API_KEY'
+// TMDB API Configuration
+const TMDB_API_KEY = import.meta.env.VITE_TMDB_API_KEY || '89e7d8dcb8ad45f036d691597c8b11bf'
+const TMDB_ACCESS_TOKEN = import.meta.env.VITE_TMDB_ACCESS_TOKEN || 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4OWU3ZDhkY2I4YWQ0NWYwMzZkNjkxNTk3YzhiMTFiZiIsIm5iZiI6MTc1OTU4MzI2Ny44MzcsInN1YiI6IjY4ZTExYzIzMDE1MTM0ZDQ1NjYxNzAyYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.QzUh1B4BogHaDeHzTM_gPjyKDJDwiyhMnwGfDMqIlc0'
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3'
 const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p'
 
-// Check if API key is configured
-if (TMDB_API_KEY === 'YOUR_TMDB_API_KEY') {
-  console.warn('⚠️ TMDB API Key not configured! Please add VITE_TMDB_API_KEY to your .env file')
-  console.warn('Get your key at: https://www.themoviedb.org/settings/api')
-}
+// Configure axios defaults for TMDB
+axios.defaults.headers.common['Authorization'] = `Bearer ${TMDB_ACCESS_TOKEN}`
 
 // Free streaming API (vidsrc.to)
 export const getStreamUrl = (movie) => {
@@ -46,14 +44,7 @@ export const getAlternativeStreamUrls = (movie) => {
 // TMDB API calls
 export const fetchTrendingMovies = async () => {
   try {
-    const response = await axios.get(
-      `${TMDB_BASE_URL}/trending/movie/week`,
-      {
-        params: {
-          api_key: TMDB_API_KEY
-        }
-      }
-    )
+    const response = await axios.get(`${TMDB_BASE_URL}/trending/movie/week`)
     return response.data.results.map(movie => ({ ...movie, media_type: 'movie' }))
   } catch (error) {
     console.error('Error fetching trending movies:', error)
@@ -63,14 +54,7 @@ export const fetchTrendingMovies = async () => {
 
 export const fetchTrendingTVShows = async () => {
   try {
-    const response = await axios.get(
-      `${TMDB_BASE_URL}/trending/tv/week`,
-      {
-        params: {
-          api_key: TMDB_API_KEY
-        }
-      }
-    )
+    const response = await axios.get(`${TMDB_BASE_URL}/trending/tv/week`)
     return response.data.results.map(show => ({ ...show, media_type: 'tv', title: show.name }))
   } catch (error) {
     console.error('Error fetching trending TV shows:', error)
@@ -80,14 +64,7 @@ export const fetchTrendingTVShows = async () => {
 
 export const fetchPopularMovies = async () => {
   try {
-    const response = await axios.get(
-      `${TMDB_BASE_URL}/movie/popular`,
-      {
-        params: {
-          api_key: TMDB_API_KEY
-        }
-      }
-    )
+    const response = await axios.get(`${TMDB_BASE_URL}/movie/popular`)
     return response.data.results.map(movie => ({ ...movie, media_type: 'movie' }))
   } catch (error) {
     console.error('Error fetching popular movies:', error)
@@ -97,15 +74,9 @@ export const fetchPopularMovies = async () => {
 
 export const searchMovies = async (query) => {
   try {
-    const response = await axios.get(
-      `${TMDB_BASE_URL}/search/multi`,
-      {
-        params: {
-          api_key: TMDB_API_KEY,
-          query: query
-        }
-      }
-    )
+    const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+      params: { query }
+    })
     return response.data.results
       .filter(item => item.media_type === 'movie' || item.media_type === 'tv')
       .map(item => ({

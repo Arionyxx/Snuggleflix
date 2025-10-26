@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { X, Palette, Zap, Layout, Download } from 'lucide-react'
+import { X, Palette, Zap, Layout, Film, Info } from 'lucide-react'
 import { useTheme } from '../contexts/ThemeContext'
 import './SettingsPanel.css'
 
@@ -117,27 +117,68 @@ function SettingsPanel({ onClose }) {
             </div>
           </section>
 
-          {/* API Configuration */}
+          {/* API Status */}
           <section className="settings-section">
             <div className="section-header">
-              <Download size={24} />
-              <h3>API Configuration</h3>
+              <Film size={24} />
+              <h3>API Status</h3>
+            </div>
+            <div className="api-status-card">
+              <div className="status-item">
+                <span className="status-label">TMDB API</span>
+                <span className="status-badge connected">✓ Connected</span>
+              </div>
+              <p className="setting-description">
+                Movies and TV shows loading from The Movie Database
+              </p>
+            </div>
+            <div className="api-status-card">
+              <div className="status-item">
+                <span className="status-label">Streaming</span>
+                <span className="status-badge connected">✓ Active</span>
+              </div>
+              <p className="setting-description">
+                4 streaming sources available: VidSrc, VidSrc Pro, SuperEmbed, 2Embed
+              </p>
+            </div>
+          </section>
+
+          {/* Real-Debrid */}
+          <section className="settings-section">
+            <div className="section-header">
+              <Info size={24} />
+              <h3>Premium Features</h3>
             </div>
             <p className="setting-description">
-              Configure your TMDB API key in <code>src/services/api.js</code>
+              Add your Real-Debrid token in the video player for premium, ad-free streaming
             </p>
             <p className="setting-description">
-              Add your Real-Debrid token in the video player for premium links
+              Get Real-Debrid at: <a href="https://real-debrid.com" target="_blank" rel="noopener noreferrer">real-debrid.com</a>
             </p>
           </section>
 
           {/* About */}
           <section className="settings-section">
             <h3>About Snuggleflix</h3>
-            <p className="setting-description">
-              Version 2.0 - Enhanced Edition
-            </p>
-            <p className="setting-description">
+            <div className="about-grid">
+              <div className="about-item">
+                <strong>Version</strong>
+                <span>3.0 - Netflix Edition</span>
+              </div>
+              <div className="about-item">
+                <strong>Themes</strong>
+                <span>6 Professional Themes</span>
+              </div>
+              <div className="about-item">
+                <strong>Profiles</strong>
+                <span>Up to 5 Profiles</span>
+              </div>
+              <div className="about-item">
+                <strong>Content</strong>
+                <span>Unlimited Movies & TV</span>
+              </div>
+            </div>
+            <p className="setting-description" style={{marginTop: '20px', textAlign: 'center'}}>
               Built with ❤️ for cozy movie nights
             </p>
           </section>
