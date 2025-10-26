@@ -1,11 +1,14 @@
 :root {
-  --primary-color: #ff6b9d;
-  --secondary-color: #c06cff;
-  --accent-color: #6cd8ff;
-  --bg-start: #1a1a2e;
-  --bg-mid: #16213e;
-  --bg-end: #0f3460;
+  --primary-color: #e50914;
+  --secondary-color: #b20710;
+  --accent-color: #ffffff;
+  --bg-start: #141414;
+  --bg-mid: #1a1a1a;
+  --bg-end: #0a0a0a;
   --animations-enabled: 1;
+  --text-primary: #ffffff;
+  --text-secondary: #b3b3b3;
+  --border-color: #2f2f2f;
 }
 
 * {
