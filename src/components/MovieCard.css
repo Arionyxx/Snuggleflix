@@ -8,7 +8,7 @@
 
 .movie-card:hover {
   transform: scale(1.05) translateY(-8px);
-  z-index: 20;
+  z-index: 50;
 }
 
 .card-image-container {
