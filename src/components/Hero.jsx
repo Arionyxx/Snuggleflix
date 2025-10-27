@@ -20,6 +20,13 @@ function Hero({ movies, onMovieSelect }) {
     return text.length > maxLength ? text.substring(0, maxLength) + '...' : text
   }
 
+  const handlePlay = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+    setTimeout(() => {
+      onMovieSelect(currentMovie)
+    }, 300)
+  }
+
   return (
     <div 
       className="hero"
@@ -37,14 +44,10 @@ function Hero({ movies, onMovieSelect }) {
         <div className="hero-buttons fade-in">
           <button 
             className="hero-btn play-btn"
-            onClick={() => onMovieSelect(currentMovie)}
+            onClick={handlePlay}
           >
             <Play fill="white" size={24} />
             Play Now
-          </button>
-          <button className="hero-btn info-btn">
-            <Info size={24} />
-            More Info
           </button>
         </div>
         <div className="hero-rating fade-in">

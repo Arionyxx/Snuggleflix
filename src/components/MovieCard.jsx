@@ -33,6 +33,14 @@ function MovieCard({ movie, onSelect, onShowDetails, index = 0 }) {
     }
   }
 
+  const handlePlay = (e) => {
+    e.stopPropagation()
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+    setTimeout(() => {
+      onSelect(movie)
+    }, 300)
+  }
+
   const cardVariants = {
     hidden: { 
       opacity: 0, 
@@ -88,7 +96,7 @@ function MovieCard({ movie, onSelect, onShowDetails, index = 0 }) {
           <Heart size={24} fill={isInWatchlist ? '#ff6b9d' : 'none'} />
         </button>
         <div className={`card-overlay ${isHovered ? 'show' : ''}`}>
-          <button className="play-icon" onClick={(e) => { e.stopPropagation(); onSelect(movie); }}>
+          <button className="play-icon" onClick={handlePlay}>
             <Play fill="white" size={32} />
           </button>
           {onShowDetails && (

@@ -16,7 +16,7 @@ function MovieDetails({ movie, onClose, onPlay }) {
   const [selectedSeason, setSelectedSeason] = useState(1)
   const [episodes, setEpisodes] = useState([])
 
-  const TMDB_API_KEY = 'YOUR_TMDB_API_KEY' // Should match api.js
+  const TMDB_API_KEY = import.meta.env.VITE_TMDB_API_KEY || 'YOUR_TMDB_API_KEY'
 
   useEffect(() => {
     loadMovieDetails()
@@ -31,7 +31,17 @@ function MovieDetails({ movie, onClose, onPlay }) {
       const detailsRes = await fetch(
         `https://api.themoviedb.org/3/${type}/${movie.id}?api_key=${TMDB_API_KEY}&append_to_response=videos,credits,similar`
       )
+      
+      if (!detailsRes.ok) {
+        throw new Error('Failed to fetch movie details')
+      }
+      
       const data = await detailsRes.json()
+      
+      if (!data || data.success === false) {
+        throw new Error('Invalid movie data')
+      }
+      
       setDetails(data)
 
       // Get cast
@@ -53,11 +63,20 @@ function MovieDetails({ movie, onClose, onPlay }) {
       }
 
       // For TV shows, load first season episodes
-      if (type === 'tv') {
+      if (type === 'tv' && data.number_of_seasons > 0) {
         loadEpisodes(1)
       }
     } catch (error) {
       console.error('Error loading movie details:', error)
+      // Set minimal details to prevent broken UI
+      setDetails({
+        title: movie.title || movie.name,
+        overview: movie.overview || 'No description available.',
+        vote_average: movie.vote_average,
+        release_date: movie.release_date || movie.first_air_date,
+        backdrop_path: movie.backdrop_path,
+        poster_path: movie.poster_path
+      })
     }
   }
 
@@ -91,8 +110,12 @@ function MovieDetails({ movie, onClose, onPlay }) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
+        onClick={onClose}
       >
-        <div className="loading-spinner">Loading...</div>
+        <div className="loading-spinner">
+          <div className="spinner-animation"></div>
+          <p>Loading details...</p>
+        </div>
       </motion.div>
     )
   }
