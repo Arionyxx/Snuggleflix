@@ -15,32 +15,54 @@ if (TMDB_API_KEY === 'YOUR_TMDB_API_KEY') {
 export const getStreamUrl = (movie) => {
   const type = movie.media_type === 'tv' ? 'tv' : 'movie'
   const id = movie.id
-  return `https://vidsrc.to/embed/${type}/${id}`
+  const season = movie.season || 1
+  const episode = movie.episode || 1
+  
+  if (type === 'tv') {
+    return `https://vidsrc.to/embed/tv/${id}/${season}/${episode}`
+  }
+  return `https://vidsrc.to/embed/movie/${id}`
 }
 
 // Alternative streaming sources
 export const getAlternativeStreamUrls = (movie) => {
   const type = movie.media_type === 'tv' ? 'tv' : 'movie'
   const id = movie.id
+  const season = movie.season || 1
+  const episode = movie.episode || 1
   
-  return [
+  const sources = [
     {
       name: 'VidSrc',
-      url: `https://vidsrc.to/embed/${type}/${id}`
+      url: type === 'tv' 
+        ? `https://vidsrc.to/embed/tv/${id}/${season}/${episode}`
+        : `https://vidsrc.to/embed/movie/${id}`
     },
     {
       name: 'VidSrc Pro',
-      url: `https://vidsrc.pro/embed/${type}/${id}`
+      url: type === 'tv'
+        ? `https://vidsrc.pro/embed/tv/${id}/${season}/${episode}`
+        : `https://vidsrc.pro/embed/movie/${id}`
     },
     {
       name: 'SuperEmbed',
-      url: `https://multiembed.mov/?video_id=${id}&tmdb=1`
+      url: `https://multiembed.mov/?video_id=${id}&tmdb=1${type === 'tv' ? `&s=${season}&e=${episode}` : ''}`
     },
     {
       name: '2Embed',
-      url: `https://www.2embed.cc/embed/${id}`
+      url: type === 'tv'
+        ? `https://www.2embed.cc/embedtv/${id}&s=${season}&e=${episode}`
+        : `https://www.2embed.cc/embed/${id}`
+    },
+    {
+      name: 'Embed.su',
+      url: type === 'tv'
+        ? `https://embed.su/embed/tv/${id}/${season}/${episode}`
+        : `https://embed.su/embed/movie/${id}`
     }
   ]
+  
+  return sources
 }
 
 // TMDB API calls

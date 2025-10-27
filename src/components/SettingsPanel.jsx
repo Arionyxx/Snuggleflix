@@ -124,10 +124,10 @@ function SettingsPanel({ onClose }) {
               <h3>API Configuration</h3>
             </div>
             <p className="setting-description">
-              Configure your TMDB API key in <code>src/services/api.js</code>
+              Configure your TMDB API key in the <code>.env</code> file as <code>VITE_TMDB_API_KEY</code>
             </p>
             <p className="setting-description">
-              Add your Real-Debrid token in the video player for premium links
+              Get your free API key at <a href="https://www.themoviedb.org/settings/api" target="_blank" rel="noopener noreferrer">TMDB API Settings</a>
             </p>
           </section>
 
