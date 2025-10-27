@@ -249,6 +249,7 @@ function App() {
           results={searchResults} 
           query={searchQuery}
           onMovieSelect={handleMovieSelect}
+          onShowDetails={handleShowDetails}
         />
       ) : (
         <>
