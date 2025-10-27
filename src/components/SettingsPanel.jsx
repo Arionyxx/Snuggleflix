@@ -24,9 +24,10 @@ function SettingsPanel({ onClose }) {
     >
       <motion.div 
         className="settings-panel"
-        initial={{ x: 300, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        exit={{ x: 300, opacity: 0 }}
+        initial={{ scale: 0.9, opacity: 0, y: 50 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        exit={{ scale: 0.9, opacity: 0, y: 50 }}
+        transition={{ type: "spring", duration: 0.4 }}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="settings-header">

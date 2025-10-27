@@ -75,12 +75,19 @@ function MovieCard({ movie, onSelect, onShowDetails, index = 0 }) {
     whileHover: 'hover'
   } : {}
 
+  const handleCardClick = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+    setTimeout(() => {
+      onSelect(movie)
+    }, 300)
+  }
+
   return (
     <MotionDiv 
       className="movie-card"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={() => onSelect(movie)}
+      onClick={handleCardClick}
       {...motionProps}
     >
       <div className="card-image-container">

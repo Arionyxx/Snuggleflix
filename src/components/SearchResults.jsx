@@ -1,7 +1,7 @@
 import MovieCard from './MovieCard'
 import './SearchResults.css'
 
-function SearchResults({ results, query, onMovieSelect }) {
+function SearchResults({ results, query, onMovieSelect, onShowDetails }) {
   if (!query) return null
 
   return (
@@ -22,6 +22,7 @@ function SearchResults({ results, query, onMovieSelect }) {
               key={`${movie.id}-${index}`}
               movie={movie}
               onSelect={onMovieSelect}
+              onShowDetails={onShowDetails}
             />
           ))}
         </div>
