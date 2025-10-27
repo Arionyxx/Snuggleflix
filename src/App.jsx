@@ -20,6 +20,17 @@ function App() {
   const [searchQuery, setSearchQuery] = useState('')
   const [searchResults, setSearchResults] = useState([])
   const [isSearching, setIsSearching] = useState(false)
+  
+  // Pagination states
+  const [trendingPage, setTrendingPage] = useState(1)
+  const [showsPage, setShowsPage] = useState(1)
+  const [popularPage, setPopularPage] = useState(1)
+  const [trendingHasMore, setTrendingHasMore] = useState(true)
+  const [showsHasMore, setShowsHasMore] = useState(true)
+  const [popularHasMore, setPopularHasMore] = useState(true)
+  const [loadingTrending, setLoadingTrending] = useState(false)
+  const [loadingShows, setLoadingShows] = useState(false)
+  const [loadingPopular, setLoadingPopular] = useState(false)
   const [showWatchlist, setShowWatchlist] = useState(false)
   const [continueWatching, setContinueWatching] = useState([])
   const [showDetails, setShowDetails] = useState(false)
@@ -43,13 +54,16 @@ function App() {
   const loadContent = async () => {
     try {
       const [trending, shows, popular] = await Promise.all([
-        fetchTrendingMovies(),
-        fetchTrendingTVShows(),
-        fetchPopularMovies()
+        fetchTrendingMovies(1),
+        fetchTrendingTVShows(1),
+        fetchPopularMovies(1)
       ])
-      setTrendingMovies(trending)
-      setTrendingShows(shows)
-      setPopularMovies(popular)
+      setTrendingMovies(trending.results)
+      setTrendingShows(shows.results)
+      setPopularMovies(popular.results)
+      setTrendingHasMore(trending.page < trending.total_pages)
+      setShowsHasMore(shows.page < shows.total_pages)
+      setPopularHasMore(popular.page < popular.total_pages)
     } catch (error) {
       console.error('Error loading content:', error)
     }
@@ -69,8 +83,8 @@ function App() {
 
     setIsSearching(true)
     try {
-      const results = await searchMovies(query)
-      setSearchResults(results)
+      const data = await searchMovies(query, 1)
+      setSearchResults(data.results)
     } catch (error) {
       console.error('Error searching:', error)
       setSearchResults([])
@@ -118,6 +132,58 @@ function App() {
   const handlePlayFromDetails = (movie) => {
     handleCloseDetails()
     handleMovieSelect(movie)
+  }
+  
+  // Load more functions
+  const loadMoreTrending = async () => {
+    if (loadingTrending || !trendingHasMore) return
+    
+    setLoadingTrending(true)
+    try {
+      const nextPage = trendingPage + 1
+      const data = await fetchTrendingMovies(nextPage)
+      setTrendingMovies(prev => [...prev, ...data.results])
+      setTrendingPage(nextPage)
+      setTrendingHasMore(data.page < data.total_pages)
+    } catch (error) {
+      console.error('Error loading more trending:', error)
+    } finally {
+      setLoadingTrending(false)
+    }
+  }
+  
+  const loadMoreShows = async () => {
+    if (loadingShows || !showsHasMore) return
+    
+    setLoadingShows(true)
+    try {
+      const nextPage = showsPage + 1
+      const data = await fetchTrendingTVShows(nextPage)
+      setTrendingShows(prev => [...prev, ...data.results])
+      setShowsPage(nextPage)
+      setShowsHasMore(data.page < data.total_pages)
+    } catch (error) {
+      console.error('Error loading more shows:', error)
+    } finally {
+      setLoadingShows(false)
+    }
+  }
+  
+  const loadMorePopular = async () => {
+    if (loadingPopular || !popularHasMore) return
+    
+    setLoadingPopular(true)
+    try {
+      const nextPage = popularPage + 1
+      const data = await fetchPopularMovies(nextPage)
+      setPopularMovies(prev => [...prev, ...data.results])
+      setPopularPage(nextPage)
+      setPopularHasMore(data.page < data.total_pages)
+    } catch (error) {
+      console.error('Error loading more popular:', error)
+    } finally {
+      setLoadingPopular(false)
+    }
   }
 
   // Keyboard shortcuts
@@ -202,18 +268,27 @@ function App() {
               movies={trendingMovies}
               onMovieSelect={handleMovieSelect}
               onShowDetails={handleShowDetails}
+              onLoadMore={loadMoreTrending}
+              hasMore={trendingHasMore}
+              isLoading={loadingTrending}
             />
             <MovieRow 
               title="Popular TV Shows" 
               movies={trendingShows}
               onMovieSelect={handleMovieSelect}
               onShowDetails={handleShowDetails}
+              onLoadMore={loadMoreShows}
+              hasMore={showsHasMore}
+              isLoading={loadingShows}
             />
             <MovieRow 
               title="Popular Movies" 
               movies={popularMovies}
               onMovieSelect={handleMovieSelect}
               onShowDetails={handleShowDetails}
+              onLoadMore={loadMorePopular}
+              hasMore={popularHasMore}
+              isLoading={loadingPopular}
             />
           </div>
         </>

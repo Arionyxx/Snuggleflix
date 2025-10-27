@@ -66,77 +66,98 @@ export const getAlternativeStreamUrls = (movie) => {
 }
 
 // TMDB API calls
-export const fetchTrendingMovies = async () => {
+export const fetchTrendingMovies = async (page = 1) => {
   try {
     const response = await axios.get(
       `${TMDB_BASE_URL}/trending/movie/week`,
       {
         params: {
-          api_key: TMDB_API_KEY
+          api_key: TMDB_API_KEY,
+          page: page
         }
       }
     )
-    return response.data.results.map(movie => ({ ...movie, media_type: 'movie' }))
+    return {
+      results: response.data.results.map(movie => ({ ...movie, media_type: 'movie' })),
+      page: response.data.page,
+      total_pages: response.data.total_pages
+    }
   } catch (error) {
     console.error('Error fetching trending movies:', error)
-    return []
+    return { results: [], page: 1, total_pages: 1 }
   }
 }
 
-export const fetchTrendingTVShows = async () => {
+export const fetchTrendingTVShows = async (page = 1) => {
   try {
     const response = await axios.get(
       `${TMDB_BASE_URL}/trending/tv/week`,
       {
         params: {
-          api_key: TMDB_API_KEY
+          api_key: TMDB_API_KEY,
+          page: page
         }
       }
     )
-    return response.data.results.map(show => ({ ...show, media_type: 'tv', title: show.name }))
+    return {
+      results: response.data.results.map(show => ({ ...show, media_type: 'tv', title: show.name })),
+      page: response.data.page,
+      total_pages: response.data.total_pages
+    }
   } catch (error) {
     console.error('Error fetching trending TV shows:', error)
-    return []
+    return { results: [], page: 1, total_pages: 1 }
   }
 }
 
-export const fetchPopularMovies = async () => {
+export const fetchPopularMovies = async (page = 1) => {
   try {
     const response = await axios.get(
       `${TMDB_BASE_URL}/movie/popular`,
       {
         params: {
-          api_key: TMDB_API_KEY
+          api_key: TMDB_API_KEY,
+          page: page
         }
       }
     )
-    return response.data.results.map(movie => ({ ...movie, media_type: 'movie' }))
+    return {
+      results: response.data.results.map(movie => ({ ...movie, media_type: 'movie' })),
+      page: response.data.page,
+      total_pages: response.data.total_pages
+    }
   } catch (error) {
     console.error('Error fetching popular movies:', error)
-    return []
+    return { results: [], page: 1, total_pages: 1 }
   }
 }
 
-export const searchMovies = async (query) => {
+export const searchMovies = async (query, page = 1) => {
   try {
     const response = await axios.get(
       `${TMDB_BASE_URL}/search/multi`,
       {
         params: {
           api_key: TMDB_API_KEY,
-          query: query
+          query: query,
+          page: page
         }
       }
     )
-    return response.data.results
+    const results = response.data.results
       .filter(item => item.media_type === 'movie' || item.media_type === 'tv')
       .map(item => ({
         ...item,
         title: item.title || item.name
       }))
+    return {
+      results: results,
+      page: response.data.page,
+      total_pages: response.data.total_pages
+    }
   } catch (error) {
     console.error('Error searching movies:', error)
-    return []
+    return { results: [], page: 1, total_pages: 1 }
   }
 }
 
