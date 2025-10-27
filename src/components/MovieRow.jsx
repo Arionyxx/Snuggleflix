@@ -1,9 +1,9 @@
 import { useRef, useState, useEffect } from 'react'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Plus } from 'lucide-react'
 import MovieCard from './MovieCard'
 import './MovieRow.css'
 
-function MovieRow({ title, movies, onMovieSelect, onShowDetails }) {
+function MovieRow({ title, movies, onMovieSelect, onShowDetails, onLoadMore, hasMore, isLoading }) {
   const rowRef = useRef(null)
   const [showLeftBtn, setShowLeftBtn] = useState(false)
   const [showRightBtn, setShowRightBtn] = useState(true)
@@ -60,6 +60,25 @@ function MovieRow({ title, movies, onMovieSelect, onShowDetails }) {
               onShowDetails={onShowDetails}
             />
           ))}
+          
+          {onLoadMore && hasMore && (
+            <div className="load-more-card">
+              <button 
+                className="load-more-btn"
+                onClick={onLoadMore}
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <div className="spinner" />
+                ) : (
+                  <>
+                    <Plus size={32} />
+                    <span>Load More</span>
+                  </>
+                )}
+              </button>
+            </div>
+          )}
         </div>
 
         {showRightBtn && (
