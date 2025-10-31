@@ -59,6 +59,36 @@ async function fetchMovies(endpoint, params = "") {
   }
 }
 
+// Fetch TV show details including seasons
+async function fetchTVShowDetails(tvId) {
+  try {
+    const response = await fetch(
+      `${TMDB_BASE_URL}/tv/${tvId}?append_to_response=credits`,
+      API_OPTIONS,
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching TV show details:", error);
+    return null;
+  }
+}
+
+// Fetch season details with episodes
+async function fetchSeasonDetails(tvId, seasonNumber) {
+  try {
+    const response = await fetch(
+      `${TMDB_BASE_URL}/tv/${tvId}/season/${seasonNumber}`,
+      API_OPTIONS,
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching season details:", error);
+    return null;
+  }
+}
+
 // Get genre names from IDs
 function getGenreNames(genreIds) {
   return genreIds.map((id) => genreMap[id] || "Unknown").slice(0, 3);
@@ -649,15 +679,35 @@ function getAlternativeStreamUrls(movie) {
   return sources;
 }
 
-function openVideoPlayer(movie) {
+async function openVideoPlayer(movie) {
   const videoPlayerModal = document.getElementById("videoPlayerModal");
   const videoPlayerIframe = document.getElementById("videoPlayerIframe");
   const videoPlayerTitle = document.getElementById("videoPlayerTitle");
   const videoLoading = document.getElementById("videoLoading");
   const sourceList = document.getElementById("sourceList");
+  const episodeSelector = document.getElementById("episodeSelector");
 
   const title = movie.title || movie.name;
-  videoPlayerTitle.textContent = `Now Playing: ${title}`;
+  const mediaType = movie.media_type || "movie";
+  const isTV = mediaType === "tv";
+
+  // Initialize season/episode if not set
+  if (isTV && !movie.season) {
+    movie.season = 1;
+    movie.episode = 1;
+  }
+
+  videoPlayerTitle.textContent = isTV
+    ? `${title} - S${movie.season} E${movie.episode}`
+    : `Now Playing: ${title}`;
+
+  // Show/hide episode selector for TV shows
+  if (isTV) {
+    episodeSelector.style.display = "block";
+    await setupEpisodeSelector(movie);
+  } else {
+    episodeSelector.style.display = "none";
+  }
 
   // Show loading
   videoLoading.classList.remove("hidden");
@@ -708,6 +758,73 @@ function openVideoPlayer(movie) {
 
   // Store current movie for source switching
   videoPlayerModal.dataset.movieData = JSON.stringify(movie);
+}
+
+// Setup episode selector for TV shows
+async function setupEpisodeSelector(movie) {
+  const seasonSelect = document.getElementById("seasonSelect");
+  const episodeGrid = document.getElementById("episodeGrid");
+
+  // Fetch TV show details to get all seasons
+  const tvDetails = await fetchTVShowDetails(movie.id);
+  if (!tvDetails || !tvDetails.seasons) return;
+
+  // Populate season dropdown
+  seasonSelect.innerHTML = "";
+  tvDetails.seasons.forEach((season) => {
+    if (season.season_number === 0) return; // Skip specials
+    const option = document.createElement("option");
+    option.value = season.season_number;
+    option.textContent = `Season ${season.season_number} (${season.episode_count} episodes)`;
+    if (season.season_number === movie.season) {
+      option.selected = true;
+    }
+    seasonSelect.appendChild(option);
+  });
+
+  // Load episodes for current season
+  await loadEpisodes(movie, movie.season);
+
+  // Handle season change
+  seasonSelect.addEventListener("change", async (e) => {
+    movie.season = parseInt(e.target.value);
+    movie.episode = 1;
+    await loadEpisodes(movie, movie.season);
+  });
+}
+
+// Load episodes for a specific season
+async function loadEpisodes(movie, seasonNumber) {
+  const episodeGrid = document.getElementById("episodeGrid");
+  episodeGrid.innerHTML =
+    '<div class="loading-episodes">Loading episodes...</div>';
+
+  const seasonDetails = await fetchSeasonDetails(movie.id, seasonNumber);
+  if (!seasonDetails || !seasonDetails.episodes) {
+    episodeGrid.innerHTML = '<div class="no-episodes">No episodes found</div>';
+    return;
+  }
+
+  episodeGrid.innerHTML = "";
+  seasonDetails.episodes.forEach((episode) => {
+    const episodeCard = document.createElement("div");
+    episodeCard.className = `episode-card ${episode.episode_number === movie.episode ? "active" : ""}`;
+    episodeCard.innerHTML = `
+      <div class="episode-number">${episode.episode_number}</div>
+      <div class="episode-info">
+        <div class="episode-title">${episode.name || `Episode ${episode.episode_number}`}</div>
+        <div class="episode-runtime">${episode.runtime ? episode.runtime + "min" : ""}</div>
+      </div>
+    `;
+
+    episodeCard.addEventListener("click", () => {
+      movie.episode = episode.episode_number;
+      // Reload video player with new episode
+      openVideoPlayer(movie);
+    });
+
+    episodeGrid.appendChild(episodeCard);
+  });
 }
 
 function closeVideoPlayer() {
