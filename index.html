@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>SnuggleFlix - Watch Movies & Shows</title>
+        <link rel="stylesheet" href="styles.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        />
+    </head>
+    <body>
+        <!-- Navigation Bar -->
+        <nav class="navbar" id="navbar">
+            <div class="nav-container">
+                <div class="nav-left">
+                    <h1 class="logo">SnuggleFlix</h1>
+                    <ul class="nav-menu">
+                        <li><a href="#" class="active">Home</a></li>
+                        <li><a href="#">TV Shows</a></li>
+                        <li><a href="#">Movies</a></li>
+                        <li><a href="#">New & Popular</a></li>
+                        <li><a href="#">My List</a></li>
+                    </ul>
+                </div>
+                <div class="nav-right">
+                    <button class="search-btn" id="searchBtn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <div class="search-container" id="searchContainer">
+                        <input
+                            type="text"
+                            placeholder="Search titles..."
+                            id="searchInput"
+                        />
+                        <button class="close-search" id="closeSearch">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <i class="fas fa-bell notification-icon"></i>
+                    <div class="profile" id="profileBtn">
+                        <img
+                            src="https://api.dicebear.com/7.x/avataaars/svg?seed=User"
+                            alt="Profile"
+                        />
+                        <i class="fas fa-caret-down"></i>
+                        <div class="profile-dropdown" id="profileDropdown">
+                            <div class="dropdown-header">
+                                <img
+                                    src="https://api.dicebear.com/7.x/avataaars/svg?seed=User"
+                                    alt="Profile"
+                                />
+                                <div class="dropdown-user-info">
+                                    <span class="dropdown-username">User</span>
+                                    <span class="dropdown-email"
+                                        >user@snuggleflix.xyz</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-user"></i>
+                                <span>My Profile</span>
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-heart"></i>
+                                <span>My List</span>
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-cog"></i>
+                                <span>Settings</span>
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-question-circle"></i>
+                                <span>Help Center</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item logout">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Logout</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero" id="hero">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">Stellar Odyssey</h1>
+                    <p class="hero-description">
+                        In a distant galaxy, a crew of unlikely heroes must band
+                        together to prevent an ancient cosmic threat from
+                        destroying all known civilization. Their journey will
+                        take them across breathtaking worlds and test the limits
+                        of their courage.
+                    </p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-play">
+                            <i class="fas fa-play"></i>
+                            Play
+                        </button>
+                        <button class="btn btn-info">
+                            <i class="fas fa-info-circle"></i>
+                            More Info
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-fade"></div>
+        </section>
+
+        <!-- Content Rows -->
+        <div class="content-wrapper">
+            <!-- Trending Now -->
+            <section class="content-row">
+                <h2 class="row-title">Trending Now</h2>
+                <div class="row-container">
+                    <button class="scroll-btn scroll-left">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="row-items" data-category="trending"></div>
+                    <button class="scroll-btn scroll-right">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Top 10 -->
+            <section class="content-row">
+                <h2 class="row-title">Top 10 This Week</h2>
+                <div class="row-container">
+                    <button class="scroll-btn scroll-left">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="row-items top-10" data-category="top10"></div>
+                    <button class="scroll-btn scroll-right">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Sci-Fi -->
+            <section class="content-row">
+                <h2 class="row-title">Sci-Fi Adventures</h2>
+                <div class="row-container">
+                    <button class="scroll-btn scroll-left">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="row-items" data-category="scifi"></div>
+                    <button class="scroll-btn scroll-right">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Drama -->
+            <section class="content-row">
+                <h2 class="row-title">Award-Winning Drama</h2>
+                <div class="row-container">
+                    <button class="scroll-btn scroll-left">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="row-items" data-category="drama"></div>
+                    <button class="scroll-btn scroll-right">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Action -->
+            <section class="content-row">
+                <h2 class="row-title">Action & Thrillers</h2>
+                <div class="row-container">
+                    <button class="scroll-btn scroll-left">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="row-items" data-category="action"></div>
+                    <button class="scroll-btn scroll-right">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Anime -->
+            <section class="content-row">
+                <h2 class="row-title">Popular Anime</h2>
+                <div class="row-container">
+                    <button class="scroll-btn scroll-left">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="row-items" data-category="anime"></div>
+                    <button class="scroll-btn scroll-right">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <!-- Modal for Content Details -->
+        <div class="modal" id="contentModal">
+            <div class="modal-content">
+                <button class="modal-close" id="modalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="modal-hero">
+                    <div class="modal-hero-content">
+                        <h2 class="modal-title"></h2>
+                        <div class="modal-buttons">
+                            <button class="btn btn-play">
+                                <i class="fas fa-play"></i>
+                                Play
+                            </button>
+                            <button class="btn-icon">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                            <button class="btn-icon">
+                                <i class="fas fa-thumbs-up"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-info">
+                    <div class="modal-main">
+                        <div class="modal-meta">
+                            <span class="match-score"></span>
+                            <span class="year"></span>
+                            <span class="rating"></span>
+                            <span class="duration"></span>
+                        </div>
+                        <p class="modal-description"></p>
+                    </div>
+                    <div class="modal-side">
+                        <p>
+                            <span class="label">Cast:</span>
+                            <span class="cast"></span>
+                        </p>
+                        <p>
+                            <span class="label">Genres:</span>
+                            <span class="genres"></span>
+                        </p>
+                        <p>
+                            <span class="label">Director:</span>
+                            <span class="director"></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <a href="#">Audio Description</a>
+                        <a href="#">Investor Relations</a>
+                        <a href="#">Legal Notices</a>
+                    </div>
+                    <div class="footer-column">
+                        <a href="#">Help Center</a>
+                        <a href="#">Jobs</a>
+                        <a href="#">Cookie Preferences</a>
+                    </div>
+                    <div class="footer-column">
+                        <a href="#">Gift Cards</a>
+                        <a href="#">Terms of Use</a>
+                        <a href="#">Corporate Information</a>
+                    </div>
+                    <div class="footer-column">
+                        <a href="#">Media Center</a>
+                        <a href="#">Privacy</a>
+                        <a href="#">Contact Us</a>
+                    </div>
+                </div>
+                <p class="footer-text">
+                    © 2024 SnuggleFlix. Made with Catppuccin theme.
+                </p>
+            </div>
+        </footer>
+
+        <!-- Video Player Modal -->
+        <div class="video-player-modal" id="videoPlayerModal">
+            <div class="video-player-container">
+                <div class="video-player-header">
+                    <h3 id="videoPlayerTitle">Now Playing</h3>
+                    <div class="video-player-controls">
+                        <button class="source-selector-btn" id="sourceSelector">
+                            <i class="fas fa-exchange-alt"></i>
+                            Change Source
+                        </button>
+                        <button
+                            class="video-player-close"
+                            id="videoPlayerClose"
+                        >
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="video-player-wrapper">
+                    <iframe
+                        id="videoPlayerIframe"
+                        allowfullscreen
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    ></iframe>
+                    <div class="video-loading" id="videoLoading">
+                        <div class="spinner"></div>
+                        <p>Loading video...</p>
+                    </div>
+                </div>
+                <div class="source-selector-dropdown" id="sourceDropdown">
+                    <h4>Select Video Source</h4>
+                    <div class="source-list" id="sourceList">
+                        <!-- Sources will be dynamically added here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Modal -->
+        <div class="settings-modal" id="settingsModal">
+            <div class="settings-content">
+                <div class="settings-header">
+                    <h2>Settings</h2>
+                    <button class="settings-close" id="settingsClose">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="settings-body">
+                    <div class="settings-section">
+                        <h3>Account</h3>
+                        <div class="setting-item">
+                            <label>Email</label>
+                            <input
+                                type="email"
+                                value="user@snuggleflix.xyz"
+                                readonly
+                            />
+                        </div>
+                        <div class="setting-item">
+                            <label>Membership</label>
+                            <span class="membership-badge">Premium</span>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3>Playback</h3>
+                        <div class="setting-item">
+                            <label>Auto-play next episode</label>
+                            <label class="toggle">
+                                <input type="checkbox" checked />
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label>Auto-play previews</label>
+                            <label class="toggle">
+                                <input type="checkbox" checked />
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label>Video Quality</label>
+                            <select>
+                                <option>Auto</option>
+                                <option>High (1080p)</option>
+                                <option>Medium (720p)</option>
+                                <option>Low (480p)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3>Appearance</h3>
+                        <div class="setting-item">
+                            <label>Theme</label>
+                            <select>
+                                <option selected>Catppuccin Mocha</option>
+                                <option>Catppuccin Macchiato</option>
+                                <option>Catppuccin Frappe</option>
+                                <option>Catppuccin Latte</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <label>Reduce motion</label>
+                            <label class="toggle">
+                                <input type="checkbox" />
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3>Notifications</h3>
+                        <div class="setting-item">
+                            <label>Email notifications</label>
+                            <label class="toggle">
+                                <input type="checkbox" checked />
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label>New releases</label>
+                            <label class="toggle">
+                                <input type="checkbox" checked />
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3>Parental Controls</h3>
+                        <div class="setting-item">
+                            <label>Content rating</label>
+                            <select>
+                                <option>All</option>
+                                <option>PG-13 and below</option>
+                                <option>PG and below</option>
+                                <option>G only</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <label>Require PIN for mature content</label>
+                            <label class="toggle">
+                                <input type="checkbox" />
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="settings-actions">
+                        <button class="btn btn-secondary" id="cancelSettings">
+                            Cancel
+                        </button>
+                        <button class="btn btn-play" id="saveSettings">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Modal -->
+        <div class="profile-modal" id="profileModal">
+            <div class="profile-modal-content">
+                <div class="profile-modal-header">
+                    <h2>My Profile</h2>
+                    <button class="profile-modal-close" id="profileModalClose">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="profile-modal-body">
+                    <div class="profile-info-section">
+                        <div class="profile-avatar-container">
+                            <img
+                                src="https://api.dicebear.com/7.x/avataaars/svg?seed=User"
+                                alt="Profile Avatar"
+                                class="profile-avatar-large"
+                            />
+                            <button class="btn-change-avatar">
+                                <i class="fas fa-camera"></i>
+                                Change Avatar
+                            </button>
+                        </div>
+                        <div class="profile-details">
+                            <div class="profile-field">
+                                <label>Username</label>
+                                <input
+                                    type="text"
+                                    value="User"
+                                    id="profileUsername"
+                                />
+                            </div>
+                            <div class="profile-field">
+                                <label>Email</label>
+                                <input
+                                    type="email"
+                                    value="user@snuggleflix.xyz"
+                                    id="profileEmail"
+                                />
+                            </div>
+                            <div class="profile-field">
+                                <label>Phone</label>
+                                <input
+                                    type="tel"
+                                    placeholder="+1 (555) 123-4567"
+                                    id="profilePhone"
+                                />
+                            </div>
+                            <div class="profile-field">
+                                <label>Bio</label>
+                                <textarea
+                                    rows="3"
+                                    placeholder="Tell us about yourself..."
+                                    id="profileBio"
+                                ></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-stats">
+                        <div class="stat-card">
+                            <i class="fas fa-film"></i>
+                            <div class="stat-info">
+                                <span class="stat-value">247</span>
+                                <span class="stat-label">Movies Watched</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-tv"></i>
+                            <div class="stat-info">
+                                <span class="stat-value">89</span>
+                                <span class="stat-label">Series</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-clock"></i>
+                            <div class="stat-info">
+                                <span class="stat-value">1,240h</span>
+                                <span class="stat-label">Watch Time</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-preferences">
+                        <h3>Favorite Genres</h3>
+                        <div class="genre-tags">
+                            <span class="genre-tag">Sci-Fi</span>
+                            <span class="genre-tag">Action</span>
+                            <span class="genre-tag">Drama</span>
+                            <span class="genre-tag">Thriller</span>
+                            <span class="genre-tag">Comedy</span>
+                        </div>
+                    </div>
+
+                    <div class="profile-actions">
+                        <button class="btn btn-secondary" id="cancelProfile">
+                            Cancel
+                        </button>
+                        <button class="btn btn-play" id="saveProfile">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
+</html>
