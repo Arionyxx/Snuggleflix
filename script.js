@@ -250,6 +250,12 @@ function setupSearch() {
   const searchContainer = document.getElementById("searchContainer");
   const closeSearch = document.getElementById("closeSearch");
   const searchInput = document.getElementById("searchInput");
+  const searchResultsSection = document.getElementById("searchResultsSection");
+  const searchResults = document.getElementById("searchResults");
+  const closeResults = document.getElementById("closeResults");
+  const noResults = document.getElementById("noResults");
+  const hero = document.getElementById("hero");
+  const contentWrapper = document.querySelector(".content-wrapper");
 
   searchBtn.addEventListener("click", () => {
     searchContainer.classList.add("active");
@@ -259,25 +265,119 @@ function setupSearch() {
   closeSearch.addEventListener("click", () => {
     searchContainer.classList.remove("active");
     searchInput.value = "";
+    hideSearchResults();
   });
+
+  closeResults.addEventListener("click", () => {
+    hideSearchResults();
+    searchInput.value = "";
+  });
+
+  function hideSearchResults() {
+    searchResultsSection.classList.remove("active");
+    hero.style.display = "block";
+    contentWrapper.style.display = "block";
+  }
+
+  function showSearchResults() {
+    searchResultsSection.classList.add("active");
+    hero.style.display = "none";
+    contentWrapper.style.display = "none";
+  }
 
   // Search with debounce
   let searchTimeout;
   searchInput.addEventListener("input", (e) => {
     clearTimeout(searchTimeout);
-    const searchTerm = e.target.value.toLowerCase();
+    const searchTerm = e.target.value.trim();
 
-    if (searchTerm.length < 2) return;
+    if (searchTerm.length < 2) {
+      hideSearchResults();
+      return;
+    }
 
     searchTimeout = setTimeout(async () => {
       const results = await fetchMovies(
         "/search/multi",
         `query=${encodeURIComponent(searchTerm)}`,
       );
-      console.log("Search results:", results);
-      // You can implement a search results display here
+
+      displaySearchResults(results, searchTerm);
     }, 500);
   });
+
+  function displaySearchResults(results, query) {
+    // Update query text
+    document.getElementById("searchQuery").textContent = query;
+    document.getElementById("searchResultsCount").textContent = results.length;
+
+    // Clear previous results
+    searchResults.innerHTML = "";
+
+    if (results.length === 0) {
+      noResults.style.display = "flex";
+      searchResults.style.display = "none";
+      showSearchResults();
+      return;
+    }
+
+    noResults.style.display = "none";
+    searchResults.style.display = "grid";
+    showSearchResults();
+
+    // Display results
+    results.forEach((item) => {
+      if (!item.poster_path && !item.backdrop_path) return; // Skip items without images
+
+      const resultCard = document.createElement("div");
+      resultCard.className = "search-result-card";
+
+      const imagePath = item.poster_path || item.backdrop_path;
+      const imageUrl = `${TMDB_IMAGE_BASE_URL}${imagePath}`;
+      const title = item.title || item.name || "Untitled";
+      const mediaType = item.media_type === "tv" ? "TV Show" : "Movie";
+      const year = item.release_date || item.first_air_date || "";
+      const yearFormatted = year ? new Date(year).getFullYear() : "N/A";
+      const rating = item.vote_average ? item.vote_average.toFixed(1) : "N/A";
+      const overview = item.overview || "No description available.";
+
+      resultCard.innerHTML = `
+        <div class="search-result-image">
+          <img src="${imageUrl}" alt="${title}" loading="lazy">
+          <div class="search-result-overlay">
+            <button class="search-play-btn">
+              <i class="fas fa-play"></i>
+            </button>
+          </div>
+        </div>
+        <div class="search-result-info">
+          <h3 class="search-result-title">${title}</h3>
+          <div class="search-result-meta">
+            <span class="search-result-type">${mediaType}</span>
+            <span class="search-result-year">${yearFormatted}</span>
+            <span class="search-result-rating">
+              <i class="fas fa-star"></i> ${rating}
+            </span>
+          </div>
+          <p class="search-result-description">${overview.substring(0, 150)}${overview.length > 150 ? "..." : ""}</p>
+        </div>
+      `;
+
+      // Add click handler to play
+      const playBtn = resultCard.querySelector(".search-play-btn");
+      playBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        playContent(item);
+      });
+
+      // Add click handler to whole card for more info
+      resultCard.addEventListener("click", () => {
+        openModal(item);
+      });
+
+      searchResults.appendChild(resultCard);
+    });
+  }
 }
 
 // Profile dropdown functionality
