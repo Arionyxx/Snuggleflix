@@ -1755,6 +1755,39 @@ body {
     transform: scale(1.1);
 }
 
+.search-result-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(
+        135deg,
+        var(--ctp-surface0),
+        var(--ctp-surface1)
+    );
+    color: var(--ctp-subtext0);
+    gap: 15px;
+    padding: 20px;
+    text-align: center;
+}
+
+.search-result-placeholder i {
+    font-size: 64px;
+    color: var(--ctp-surface2);
+}
+
+.search-result-placeholder span {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ctp-subtext0);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
 .search-result-overlay {
     position: absolute;
     top: 0;

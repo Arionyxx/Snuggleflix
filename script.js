@@ -327,13 +327,10 @@ function setupSearch() {
 
     // Display results
     results.forEach((item) => {
-      if (!item.poster_path && !item.backdrop_path) return; // Skip items without images
-
       const resultCard = document.createElement("div");
       resultCard.className = "search-result-card";
 
       const imagePath = item.poster_path || item.backdrop_path;
-      const imageUrl = `${TMDB_IMAGE_BASE_URL}${imagePath}`;
       const title = item.title || item.name || "Untitled";
       const mediaType = item.media_type === "tv" ? "TV Show" : "Movie";
       const year = item.release_date || item.first_air_date || "";
@@ -341,9 +338,21 @@ function setupSearch() {
       const rating = item.vote_average ? item.vote_average.toFixed(1) : "N/A";
       const overview = item.overview || "No description available.";
 
+      // Create image HTML - use placeholder if no image
+      let imageHTML;
+      if (imagePath) {
+        const imageUrl = `${TMDB_IMAGE_BASE_URL}${imagePath}`;
+        imageHTML = `<img src="${imageUrl}" alt="${title}" loading="lazy">`;
+      } else {
+        imageHTML = `<div class="search-result-placeholder">
+          <i class="fas fa-film"></i>
+          <span>${title}</span>
+        </div>`;
+      }
+
       resultCard.innerHTML = `
         <div class="search-result-image">
-          <img src="${imageUrl}" alt="${title}" loading="lazy">
+          ${imageHTML}
           <div class="search-result-overlay">
             <button class="search-play-btn">
               <i class="fas fa-play"></i>
