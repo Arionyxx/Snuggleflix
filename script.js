@@ -4,7 +4,14 @@ const SITE_NAME = "SnuggleFlix";
 // TMDB API Configuration
 // Get your FREE API Read Access Token from: https://www.themoviedb.org/settings/api
 // Use the LONG token (Bearer token), not the short API key!
-const TMDB_API_READ_ACCESS_TOKEN = "YOUR_API_READ_ACCESS_TOKEN_HERE";
+// ⚠️ IMPORTANT: Add your TMDB API token here!
+// Get it from: https://www.themoviedb.org/settings/api
+// Use the LONG "API Read Access Token" (Bearer token)
+const TMDB_API_READ_ACCESS_TOKEN =
+  "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NjViMmJhYjlhOGI2ZGE4YThhODYzMjhkMGQ0MDgyMCIsIm5iZiI6MTc1OTU4MzI2Ny44MzcsInN1YiI6IjY4ZTExYzIzMDE1MTM0ZDQ1NjYxNzAyYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.XEhh_S74qPv2JLOFhXJXhfhtIUQJtGZ1oFnxiUvIPkg";
+
+// For quick setup: Uncomment the line below and paste your token
+// const TMDB_API_READ_ACCESS_TOKEN = "eyJhbG...your-token-here";
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const TMDB_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 const TMDB_BACKDROP_BASE_URL = "https://image.tmdb.org/t/p/original";
@@ -835,18 +842,20 @@ function checkApiKey() {
     console.log(
       "⚡ Use the LONG Bearer token (API Read Access Token), not the short API key!",
     );
-    console.log(
-      "Then replace YOUR_API_READ_ACCESS_TOKEN_HERE in script.js with your actual token",
-    );
+    console.log("Then add it to line 9 in script.js");
 
-    // Show message to user
+    // Show message to user with copy-paste instructions
     const hero = document.querySelector(".hero-description");
     hero.innerHTML = `
-            <strong style="color: #f38ba8;">⚠️ API Read Access Token Required!</strong><br>
-            To see real movies, get your free TMDB <strong>API Read Access Token</strong> (the long Bearer token) from
-            <a href="https://www.themoviedb.org/settings/api" target="_blank" style="color: #cba6f7;">themoviedb.org</a>
-            and add it to script.js<br>
-            <small style="color: #a6adc8;">Use the long token, not the short API key!</small>
+            <strong style="color: #f38ba8;">⚠️ API Read Access Token Required!</strong><br><br>
+            <strong style="color: #cba6f7;">Quick Setup:</strong><br>
+            1. Get your free TMDB <strong>API Read Access Token</strong> from
+            <a href="https://www.themoviedb.org/settings/api" target="_blank" style="color: #89b4fa; text-decoration: underline;">themoviedb.org/settings/api</a><br>
+            2. Copy the <strong>LONG</strong> Bearer token (starts with "eyJh...")<br>
+            3. Open <code style="background: var(--ctp-surface0); padding: 2px 6px; border-radius: 3px;">script.js</code> and paste it at <strong>line 9</strong><br>
+            4. Save and refresh this page<br><br>
+            <small style="color: #a6adc8;">⚠️ Use the long API Read Access Token, NOT the short API key!</small><br>
+            <small style="color: #a6adc8;">💡 Vercel environment variables don't work for client-side JavaScript</small>
         `;
     return false;
   }
