@@ -272,6 +272,45 @@ function setupNavbar() {
       navbar.classList.remove("scrolled");
     }
   });
+
+  // Make logo clickable to go home and reset search
+  const logo = document.querySelector(".logo");
+  const homeLinks = document.querySelectorAll('.nav-menu a[href="#"]');
+
+  logo.style.cursor = "pointer";
+
+  logo.addEventListener("click", () => {
+    resetToHome();
+  });
+
+  homeLinks.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      if (link.textContent === "Home") {
+        e.preventDefault();
+        resetToHome();
+      }
+    });
+  });
+
+  function resetToHome() {
+    // Close search if open
+    const searchContainer = document.getElementById("searchContainer");
+    const searchInput = document.getElementById("searchInput");
+    const searchResultsSection = document.getElementById(
+      "searchResultsSection",
+    );
+    const hero = document.getElementById("hero");
+    const contentWrapper = document.querySelector(".content-wrapper");
+
+    searchContainer.classList.remove("active");
+    searchInput.value = "";
+    searchResultsSection.classList.remove("active");
+    hero.style.display = "block";
+    contentWrapper.style.display = "block";
+
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
 }
 
 // Search functionality
@@ -307,6 +346,8 @@ function setupSearch() {
     searchResultsSection.classList.remove("active");
     hero.style.display = "block";
     contentWrapper.style.display = "block";
+    // Scroll to top smoothly to prevent layout jump
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function showSearchResults() {
