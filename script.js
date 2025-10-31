@@ -4,8 +4,7 @@ const SITE_NAME = "SnuggleFlix";
 // TMDB API Configuration
 // Get your FREE API Read Access Token from: https://www.themoviedb.org/settings/api
 // Use the LONG token (Bearer token), not the short API key!
-const TMDB_API_READ_ACCESS_TOKEN =
-  "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4OWU3ZDhkY2I4YWQ0NWYwMzZkNjkxNTk3YzhiMTFiZiIsIm5iZiI6MTc1OTU4MzI2Ny44MzcsInN1YiI6IjY4ZTExYzIzMDE1MTM0ZDQ1NjYxNzAyYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.QzUh1B4BogHaDeHzTM_gPjyKDJDwiyhMnwGfDMqIlc0";
+const TMDB_API_READ_ACCESS_TOKEN = "YOUR_API_READ_ACCESS_TOKEN_HERE";
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const TMDB_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 const TMDB_BACKDROP_BASE_URL = "https://image.tmdb.org/t/p/original";
