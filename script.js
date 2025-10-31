@@ -686,6 +686,7 @@ async function openVideoPlayer(movie) {
   const videoLoading = document.getElementById("videoLoading");
   const sourceList = document.getElementById("sourceList");
   const episodeSelector = document.getElementById("episodeSelector");
+  const episodeToggleBtn = document.getElementById("episodeToggleBtn");
 
   const title = movie.title || movie.name;
   const mediaType = movie.media_type || "movie";
@@ -701,11 +702,14 @@ async function openVideoPlayer(movie) {
     ? `${title} - S${movie.season} E${movie.episode}`
     : `Now Playing: ${title}`;
 
-  // Show/hide episode selector for TV shows
+  // Show/hide episode toggle button for TV shows
   if (isTV) {
-    episodeSelector.style.display = "block";
+    episodeToggleBtn.style.display = "flex";
     await setupEpisodeSelector(movie);
+    // Start with panel hidden
+    episodeSelector.classList.remove("active");
   } else {
+    episodeToggleBtn.style.display = "none";
     episodeSelector.style.display = "none";
   }
 
@@ -841,6 +845,9 @@ function setupVideoPlayer() {
   const videoPlayerModal = document.getElementById("videoPlayerModal");
   const sourceSelector = document.getElementById("sourceSelector");
   const sourceDropdown = document.getElementById("sourceDropdown");
+  const episodeToggleBtn = document.getElementById("episodeToggleBtn");
+  const episodeSelector = document.getElementById("episodeSelector");
+  const closeEpisodePanel = document.getElementById("closeEpisodePanel");
 
   videoPlayerClose.addEventListener("click", closeVideoPlayer);
 
@@ -856,6 +863,17 @@ function setupVideoPlayer() {
     sourceDropdown.classList.toggle("active");
   });
 
+  // Episode panel toggle
+  episodeToggleBtn.addEventListener("click", () => {
+    episodeSelector.classList.toggle("active");
+    sourceDropdown.classList.remove("active");
+  });
+
+  // Close episode panel
+  closeEpisodePanel.addEventListener("click", () => {
+    episodeSelector.classList.remove("active");
+  });
+
   // Close dropdown when clicking outside
   document.addEventListener("click", (e) => {
     if (
@@ -863,6 +881,12 @@ function setupVideoPlayer() {
       !sourceDropdown.contains(e.target)
     ) {
       sourceDropdown.classList.remove("active");
+    }
+    if (
+      !episodeToggleBtn.contains(e.target) &&
+      !episodeSelector.contains(e.target)
+    ) {
+      episodeSelector.classList.remove("active");
     }
   });
 

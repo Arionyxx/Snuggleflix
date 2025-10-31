@@ -371,6 +371,15 @@
                 <div class="video-player-header">
                     <h3 id="videoPlayerTitle">Now Playing</h3>
                     <div class="video-player-controls">
+                        <button
+                            class="episode-toggle-btn"
+                            id="episodeToggleBtn"
+                            style="display: none"
+                            title="Toggle Episodes"
+                        >
+                            <i class="fas fa-list"></i>
+                            Episodes
+                        </button>
                         <button class="source-selector-btn" id="sourceSelector">
                             <i class="fas fa-exchange-alt"></i>
                             Change Source
@@ -381,31 +390,6 @@
                         >
                             <i class="fas fa-times"></i>
                         </button>
-                    </div>
-                </div>
-                <!-- Season/Episode Selector (for TV Shows) -->
-                <div
-                    class="episode-selector"
-                    id="episodeSelector"
-                    style="display: none"
-                >
-                    <div class="episode-selector-controls">
-                        <div class="season-selector">
-                            <label for="seasonSelect">
-                                <i class="fas fa-list"></i> Season:
-                            </label>
-                            <select id="seasonSelect" class="season-select">
-                                <!-- Seasons will be populated here -->
-                            </select>
-                        </div>
-                        <div class="episode-selector-main">
-                            <label>
-                                <i class="fas fa-film"></i> Episode:
-                            </label>
-                            <div class="episode-grid" id="episodeGrid">
-                                <!-- Episodes will be populated here -->
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="video-player-wrapper">
@@ -424,6 +408,40 @@
                     <h4>Select Video Source</h4>
                     <div class="source-list" id="sourceList">
                         <!-- Sources will be dynamically added here -->
+                    </div>
+                </div>
+                <!-- Season/Episode Selector (for TV Shows) -->
+                <div
+                    class="episode-selector-panel"
+                    id="episodeSelector"
+                    style="display: none"
+                >
+                    <div class="episode-selector-header">
+                        <h4><i class="fas fa-tv"></i> Select Episode</h4>
+                        <button
+                            class="close-episode-panel"
+                            id="closeEpisodePanel"
+                        >
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="episode-selector-controls">
+                        <div class="season-selector">
+                            <label for="seasonSelect">
+                                <i class="fas fa-list"></i> Season:
+                            </label>
+                            <select id="seasonSelect" class="season-select">
+                                <!-- Seasons will be populated here -->
+                            </select>
+                        </div>
+                        <div class="episode-selector-main">
+                            <label>
+                                <i class="fas fa-film"></i> Episodes:
+                            </label>
+                            <div class="episode-grid" id="episodeGrid">
+                                <!-- Episodes will be populated here -->
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
