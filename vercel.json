@@ -1,8 +1,12 @@
 {
   "version": 2,
+  "buildCommand": null,
+  "installCommand": null,
+  "framework": null,
+  "outputDirectory": ".",
   "builds": [
     {
-      "src": "index.html",
+      "src": "**",
       "use": "@vercel/static"
     }
   ],
@@ -22,7 +26,7 @@
         },
         {
           "key": "X-Frame-Options",
-          "value": "DENY"
+          "value": "SAMEORIGIN"
         },
         {
           "key": "X-XSS-Protection",
