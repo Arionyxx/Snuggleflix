@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnuggleFlix OG Image</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 1200px;
+            height: 630px;
+            margin: 0;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+        }
+
+        .og-container {
+            width: 1200px;
+            height: 630px;
+            background: linear-gradient(135deg, #1e1e2e 0%, #181825 50%, #11111b 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decorative circles */
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.4;
+        }
+
+        .circle1 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(203, 166, 247, 0.3) 0%, transparent 70%);
+            top: 0;
+            left: 50px;
+        }
+
+        .circle2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(203, 166, 247, 0.2) 0%, transparent 70%);
+            top: 280px;
+            right: 0;
+        }
+
+        .circle3 {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(203, 166, 247, 0.15) 0%, transparent 70%);
+            top: 215px;
+            left: 500px;
+        }
+
+        /* Coffee cup */
+        .coffee-cup {
+            position: absolute;
+            left: 100px;
+            top: 180px;
+            width: 250px;
+            height: 250px;
+        }
+
+        .cup-body {
+            position: absolute;
+            left: 30px;
+            top: 60px;
+            width: 140px;
+            height: 160px;
+            background: linear-gradient(180deg, #cba6f7 0%, #f5c2e7 100%);
+            border-radius: 0 0 20px 20px;
+            clip-path: polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%);
+            box-shadow: 0 10px 30px rgba(203, 166, 247, 0.4);
+        }
+
+        .cup-liquid {
+            position: absolute;
+            left: 45px;
+            top: 60px;
+            width: 110px;
+            height: 15px;
+            background: #94e2d5;
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+
+        .cup-handle {
+            position: absolute;
+            left: 170px;
+            top: 90px;
+            width: 50px;
+            height: 80px;
+            border: 8px solid #cba6f7;
+            border-left: none;
+            border-radius: 0 40px 40px 0;
+            box-shadow: 0 5px 15px rgba(203, 166, 247, 0.3);
+        }
+
+        .steam {
+            position: absolute;
+            width: 6px;
+            background: linear-gradient(180deg, rgba(180, 190, 254, 0.8) 0%, rgba(137, 180, 250, 0.2) 100%);
+            border-radius: 3px;
+        }
+
+        .steam1 {
+            left: 70px;
+            top: 20px;
+            height: 40px;
+            transform: rotate(-5deg);
+        }
+
+        .steam2 {
+            left: 100px;
+            top: 10px;
+            height: 50px;
+            width: 8px;
+        }
+
+        .steam3 {
+            left: 130px;
+            top: 20px;
+            height: 40px;
+            transform: rotate(5deg);
+        }
+
+        /* Content */
+        .content {
+            position: absolute;
+            left: 420px;
+            top: 150px;
+        }
+
+        .title {
+            font-size: 110px;
+            font-weight: 900;
+            background: linear-gradient(90deg, #cba6f7 0%, #f5c2e7 50%, #89b4fa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -3px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 4px 8px rgba(203, 166, 247, 0.3));
+        }
+
+        .subtitle {
+            font-size: 32px;
+            color: #cdd6f4;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .badges {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .badge {
+            background: rgba(49, 50, 68, 0.8);
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 18px;
+            color: #cdd6f4;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+
+        .movie-cards {
+            display: flex;
+            gap: 12px;
+            opacity: 0.6;
+        }
+
+        .card {
+            width: 120px;
+            height: 75px;
+            border-radius: 8px;
+        }
+
+        .card1 { background: linear-gradient(135deg, #cba6f7 0%, #f5c2e7 100%); }
+        .card2 { background: #89b4fa; }
+        .card3 { background: #f5c2e7; }
+        .card4 { background: #94e2d5; }
+
+        .footer {
+            position: absolute;
+            bottom: 30px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 22px;
+            color: #a6adc8;
+            opacity: 0.7;
+        }
+
+        /* Sparkles */
+        .sparkle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #f9e2af;
+            border-radius: 50%;
+            opacity: 0.6;
+        }
+
+        .sparkle1 { left: 850px; top: 150px; width: 6px; height: 6px; }
+        .sparkle2 { left: 890px; top: 170px; width: 5px; height: 5px; }
+        .sparkle3 { left: 870px; top: 210px; width: 8px; height: 8px; }
+        .sparkle4 { left: 380px; top: 380px; width: 6px; height: 6px; }
+        .sparkle5 { left: 1020px; top: 320px; width: 5px; height: 5px; }
+        .sparkle6 { left: 350px; top: 460px; width: 6px; height: 6px; }
+
+        /* Film strip decoration */
+        .film-strip {
+            position: absolute;
+            left: 30px;
+            top: 40px;
+            width: 50px;
+            height: 550px;
+            background: rgba(88, 91, 112, 0.1);
+            border-radius: 5px;
+        }
+
+        .film-hole {
+            width: 30px;
+            height: 25px;
+            background: #1e1e2e;
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="og-container">
+        <!-- Decorative circles -->
+        <div class="circle circle1"></div>
+        <div class="circle circle2"></div>
+        <div class="circle circle3"></div>
+
+        <!-- Film strip -->
+        <div class="film-strip">
+            <div class="film-hole"></div>
+            <div class="film-hole"></div>
+            <div class="film-hole"></div>
+            <div class="film-hole"></div>
+            <div class="film-hole"></div>
+            <div class="film-hole"></div>
+            <div class="film-hole"></div>
+            <div class="film-hole"></div>
+            <div class="film-hole"></div>
+            <div class="film-hole"></div>
+        </div>
+
+        <!-- Coffee cup -->
+        <div class="coffee-cup">
+            <div class="steam steam1"></div>
+            <div class="steam steam2"></div>
+            <div class="steam steam3"></div>
+            <div class="cup-liquid"></div>
+            <div class="cup-body"></div>
+            <div class="cup-handle"></div>
+        </div>
+
+        <!-- Main content -->
+        <div class="content">
+            <div class="title">SnuggleFlix</div>
+            <div class="subtitle">Watch Movies & Shows with Catppuccin Theme</div>
+
+            <div class="badges">
+                <div class="badge">🎬 10,000+ Titles</div>
+                <div class="badge">☕ Cozy Theme</div>
+                <div class="badge">🆓 Free Forever</div>
+            </div>
+
+            <div class="movie-cards">
+                <div class="card card1"></div>
+                <div class="card card2"></div>
+                <div class="card card3"></div>
+                <div class="card card4"></div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">Powered by TMDB • Built with 💜</div>
+
+        <!-- Sparkles -->
+        <div class="sparkle sparkle1"></div>
+        <div class="sparkle sparkle2"></div>
+        <div class="sparkle sparkle3"></div>
+        <div class="sparkle sparkle4"></div>
+        <div class="sparkle sparkle5"></div>
+        <div class="sparkle sparkle6"></div>
+    </div>
+</body>
+</html>
