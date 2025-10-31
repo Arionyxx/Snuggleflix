@@ -747,6 +747,7 @@ async function openVideoPlayer(movie) {
   if (isTV) {
     episodeToggleBtn.style.display = "flex";
     episodeToggleBtn.disabled = false;
+    episodeSelector.style.display = "block";
     console.log("Episode button shown for TV show:", title);
     await setupEpisodeSelector(movie);
     // Start with panel hidden
@@ -910,7 +911,10 @@ function setupVideoPlayer() {
   episodeToggleBtn.addEventListener("click", (e) => {
     e.stopPropagation();
     console.log("Episode toggle clicked!");
-    episodeSelector.classList.toggle("active");
+    const isActive = episodeSelector.classList.toggle("active");
+    console.log("Episode panel active:", isActive);
+    console.log("Episode panel display:", episodeSelector.style.display);
+    console.log("Episode panel classes:", episodeSelector.className);
     sourceDropdown.classList.remove("active");
   });
 
