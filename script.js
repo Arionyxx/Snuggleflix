@@ -302,14 +302,17 @@ function setupNavbar() {
     const hero = document.getElementById("hero");
     const contentWrapper = document.querySelector(".content-wrapper");
 
-    searchContainer.classList.remove("active");
-    searchInput.value = "";
-    searchResultsSection.classList.remove("active");
-    hero.style.display = "block";
-    contentWrapper.style.display = "block";
+    // Scroll to top FIRST (instantly)
+    window.scrollTo({ top: 0, behavior: "instant" });
 
-    // Scroll to top
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    // Then reset content after tiny delay
+    setTimeout(() => {
+      searchContainer.classList.remove("active");
+      searchInput.value = "";
+      searchResultsSection.classList.remove("active");
+      hero.style.display = "block";
+      contentWrapper.style.display = "block";
+    }, 10);
   }
 }
 
@@ -343,11 +346,14 @@ function setupSearch() {
   });
 
   function hideSearchResults() {
-    searchResultsSection.classList.remove("active");
-    hero.style.display = "block";
-    contentWrapper.style.display = "block";
-    // Scroll to top smoothly to prevent layout jump
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    // Scroll to top FIRST (instantly) to prevent layout jump
+    window.scrollTo({ top: 0, behavior: "instant" });
+    // Then show content after a tiny delay
+    setTimeout(() => {
+      searchResultsSection.classList.remove("active");
+      hero.style.display = "block";
+      contentWrapper.style.display = "block";
+    }, 10);
   }
 
   function showSearchResults() {
