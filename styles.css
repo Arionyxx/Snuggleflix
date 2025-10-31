@@ -1353,6 +1353,9 @@ body {
     gap: 10px;
     transition: all 0.3s ease;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    pointer-events: auto;
+    position: relative;
+    z-index: 10;
 }
 
 .source-selector-btn:hover,
@@ -2153,28 +2156,6 @@ body {
     50% {
         opacity: 0.5;
     }
-}
-
-/* Episode Toggle Button */
-.episode-toggle-btn {
-    background-color: var(--ctp-surface0);
-    border: 1px solid var(--ctp-surface2);
-    color: var(--ctp-text);
-    padding: 10px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 500;
-}
-
-.episode-toggle-btn:hover {
-    background-color: var(--ctp-surface1);
-    border-color: var(--ctp-mauve);
-    color: var(--ctp-mauve);
 }
 
 /* Responsive adjustments for episode selector */

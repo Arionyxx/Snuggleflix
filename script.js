@@ -746,6 +746,8 @@ async function openVideoPlayer(movie) {
   // Show/hide episode toggle button for TV shows
   if (isTV) {
     episodeToggleBtn.style.display = "flex";
+    episodeToggleBtn.disabled = false;
+    console.log("Episode button shown for TV show:", title);
     await setupEpisodeSelector(movie);
     // Start with panel hidden
     episodeSelector.classList.remove("active");
@@ -905,13 +907,16 @@ function setupVideoPlayer() {
   });
 
   // Episode panel toggle
-  episodeToggleBtn.addEventListener("click", () => {
+  episodeToggleBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    console.log("Episode toggle clicked!");
     episodeSelector.classList.toggle("active");
     sourceDropdown.classList.remove("active");
   });
 
   // Close episode panel
-  closeEpisodePanel.addEventListener("click", () => {
+  closeEpisodePanel.addEventListener("click", (e) => {
+    e.stopPropagation();
     episodeSelector.classList.remove("active");
   });
 
