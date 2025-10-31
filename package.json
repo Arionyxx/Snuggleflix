@@ -1,0 +1,19 @@
+{
+  "name": "snuggleflix",
+  "version": "1.0.0",
+  "description": "Netflix-like streaming site with Catppuccin theme",
+  "scripts": {
+    "dev": "echo 'No build needed - open index.html in browser'",
+    "build": "echo 'No build needed - static site'",
+    "start": "echo 'No start needed - static site'"
+  },
+  "keywords": [
+    "streaming",
+    "movies",
+    "catppuccin",
+    "tmdb"
+  ],
+  "author": "Arionyxx",
+  "license": "MIT",
+  "type": "module"
+}
